@@ -10,3 +10,13 @@ export const openNavbar=(prop:boolean)=>{
         }
     }
 }
+export const openCreateBoard=(prop:boolean)=>{
+    
+    return {
+        type:"CREATEBOARD_OPEN",
+        payload:{
+            createBoard:prop
+           
+        }
+    }
+}

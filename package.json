@@ -7,6 +7,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.5",
+    "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.1",
     "next": "latest",
     "next-redux-wrapper": "^8.0.0",

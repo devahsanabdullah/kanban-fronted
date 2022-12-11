@@ -3,6 +3,7 @@ import BoardMenu from "src/components/BoardMenu";
 import SideBar from '../components/Nav-SideBar/index'
 import {useSelector} from 'react-redux'
 import { InitialProps } from "src/services/reducer/reducer";
+import ModelTitle from '../components/Model/index'
 
 const Home: NextPage = () => {
   const open = useSelector((state:InitialProps)=>state.openNav)
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
     <BoardMenu />
       </div>
     </div>
-    
+    <ModelTitle />
     </>
   )
 };

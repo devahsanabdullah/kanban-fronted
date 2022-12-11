@@ -4,6 +4,7 @@ export type InitialProps={
     password:string
 
     openNav:boolean
+    createBoard :boolean
     change:boolean
  
     totalAmount:Number
@@ -13,6 +14,7 @@ const initialState:InitialProps= {
         email:'',
         password:'',
         openNav:true,
+        createBoard:false,
         change:false,
       
         totalAmount:0
@@ -33,6 +35,14 @@ const initialState:InitialProps= {
                     ...state,
     
                      openNav:action.payload.openNav,
+                    
+                
+                } 
+                case "CREATEBOARD_OPEN":
+                return {
+                    ...state,
+    
+                    createBoard:action.payload.createBoard,
                     
                 
                 } 
