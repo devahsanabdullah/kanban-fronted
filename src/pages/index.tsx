@@ -1,7 +1,12 @@
 import type { NextPage } from "next";
+import SideBar from '../components/Nav-SideBar/index'
 
 const Home: NextPage = () => {
-  return <div className="text-blue-500">Hello!</div>;
+  return(
+    <>
+    <SideBar />
+    </>
+  )
 };
 
 export default Home;
