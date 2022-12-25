@@ -10,11 +10,16 @@
     "@headlessui/react": "^1.7.5",
     "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.1",
+    "formik": "^2.2.9",
+    "mongoose": "^6.8.1",
     "next": "latest",
     "next-redux-wrapper": "^8.0.0",
     "react": "^18.0.2",
     "react-dom": "^18.0.2",
-    "react-redux": "^8.0.5"
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
