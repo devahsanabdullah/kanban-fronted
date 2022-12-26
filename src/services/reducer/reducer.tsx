@@ -1,79 +1,37 @@
+export type InitialProps = {
+  openNav: boolean;
+  createBoard: boolean;
+  boardData: [];
+};
 
-export type InitialProps={
-    email:string
-    password:string
+const initialState: InitialProps = {
+  openNav: true,
+  createBoard: false,
+  boardData: [],
+};
 
-    openNav:boolean
-    createBoard :boolean
-    change:boolean
- 
-    totalAmount:Number
-}
+const rootReducer = (state: InitialProps = initialState, action: any) => {
+  switch (action.type) {
+    case "NAV_OPEN":
+      return {
+        ...state,
 
-const initialState:InitialProps= {
-        email:'',
-        password:'',
-        openNav:true,
-        createBoard:false,
-        change:false,
-      
-        totalAmount:0
+        openNav: action.payload.openNav,
+      };
+    case "CREATEBOARD_OPEN":
+      return {
+        ...state,
+
+        createBoard: action.payload.createBoard,
+      };
+      case "BOARD_DATA":
+      return {
+        ...state,
+        boardData: action.payload.boardData,
+      };
+
+    default:
+      return state;
   }
-  
-  const rootReducer = (state:InitialProps = initialState, action:any) => {
-    switch(action.type){
-   
-        case "VIEW_COMMENT":
-            return {
-                ...state,
-
-                commentView:action.payload.commentView
-            
-            }
-            case "NAV_OPEN":
-                return {
-                    ...state,
-    
-                     openNav:action.payload.openNav,
-                    
-                
-                } 
-                case "CREATEBOARD_OPEN":
-                return {
-                    ...state,
-    
-                    createBoard:action.payload.createBoard,
-                    
-                
-                } 
-                case "CHANGE_ITEM":
-                return {
-                    ...state,
-    
-                     change:action.payload.change,
-                   
-                
-                }  
-                case "BUYER_DATA":
-                    return {
-                        ...state,
-        
-                        buyerData:action.payload.buyerData,
-                       
-                    
-                    }  
-                    case "TOTAL_AMOUNT":
-                    return {
-                        ...state,
-        
-                        totalAmount:action.payload.totalAmount,
-                       
-                    
-                    }  
-               
-             
-        default:
-            return state
-    }
- }
- export default rootReducer;
+};
+export default rootReducer;

@@ -1,27 +1,29 @@
 import { models, model, Schema } from 'mongoose';
-
-const boardTitle: Schema = new Schema({
-    columns: [
-        {
-          title: {
-            type: String,
-            required: true
-          },
-        //   cards: [
-        //     {
-        //       title: {
-        //         type: String,
-        //         required: true
-        //       },
-        //       description: {
-        //         type: String
-        //       }
-        //     }
-        //   ]
-        }
-      ]
+import { number } from 'yup';
+const columnSchema: Schema = new Schema(
+   {
+              title: {
+                type: String,
+                require:true
+                
+              },
+              id: {
+                type: Number,
+              }
 });
 
-const kanbanModel = models.todo || model('kanban', boardTitle);
+const boardTitle: Schema = new Schema({
+
+        
+        data:{  title: {
+            type: String,
+           require:true
+          },
+          column: [columnSchema]}
+        
+      
+});
+
+const kanbanModel =models.kanban || model('kanban', boardTitle);
 
 export default kanbanModel;

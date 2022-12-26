@@ -20,3 +20,13 @@ export const openCreateBoard=(prop:boolean)=>{
         }
     }
 }
+export const boardData=(prop:any)=>{
+    
+    return {
+        type:"BOARD_DATA",
+        payload:{
+            boardData:prop
+           
+        }
+    }
+}

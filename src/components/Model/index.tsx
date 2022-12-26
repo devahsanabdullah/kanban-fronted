@@ -61,8 +61,10 @@ export default function ModelTitle() {
                     initialValues={{ name: "", columns: [""] }}
                     validationSchema={formSchema}
                     onSubmit={(values, { setSubmitting }) => {
-                      alert(JSON.stringify(values, null, 2));
-                      let result = axios.post('/api/saveData',values)
+                      const arrayOfObjects = values.columns.map((str:string, index) => ({id: index, title: str}))
+                      const objectData = {title:values.name,column:arrayOfObjects}
+                      // alert(JSON.stringify(objectData, null, 2));
+                      let result = axios.post('/api/saveData',objectData)
                         if(result)
                     {
                       alert(result)

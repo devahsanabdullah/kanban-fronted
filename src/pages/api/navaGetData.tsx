@@ -7,13 +7,10 @@ export default async function handler(
 ) {
   try {
     await connection();
-    
-  
-     let result =  await new kanbanModel({data:req.body});
-      let data = await result.save()
+    let result = await kanbanModel.find();
 
-    if (data) {
-      res.status(200).json('successfull save');
+    if (result.length>0) {
+      res.status(200).json(result);
     }
   } catch (error) {
     console.log(error);
