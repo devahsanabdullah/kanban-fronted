@@ -1,5 +1,25 @@
 import { models, model, Schema } from 'mongoose';
 import { number } from 'yup';
+const taskSchema: Schema = new Schema(
+  {
+    name:{
+      type: String,
+      require:true
+     
+      
+    },
+    description:{
+      type: String,
+      require:true
+    
+
+    },
+    status:{
+      type: String,
+      require:true
+      
+    }
+  });
 const columnSchema: Schema = new Schema(
    {
               title: {
@@ -9,7 +29,8 @@ const columnSchema: Schema = new Schema(
               },
               id: {
                 type: Number,
-              }
+              },
+              task:[taskSchema]
 });
 
 const boardTitle: Schema = new Schema({

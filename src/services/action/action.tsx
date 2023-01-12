@@ -10,17 +10,35 @@ export const openNavbar=(prop:boolean)=>{
         }
     }
 }
+export const reload=(prop:boolean)=>{
+    
+    return {
+        type:"CHANGE",
+        payload:{
+          change:prop
+           
+        }
+    }
+}
 export const openCreateBoard=(prop:boolean)=>{
     
     return {
         type:"CREATEBOARD_OPEN",
         payload:{
             createBoard:prop
-           
         }
     }
 }
-export const boardData=(prop:any)=>{
+export const openNewTask=(prop:boolean)=>{
+    
+    return {
+        type:"NEWTASK_OPEN",
+        payload:{
+            newTask:prop
+        }
+    }
+}
+export const allboardData=(prop:any)=>{
     
     return {
         type:"BOARD_DATA",

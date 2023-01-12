@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return  (
   <>
   <div className="flex w-full">
-    <div className="w-1/4">
+    <div className="w-1/4 hidden md:block">
     <HeaderLogo />
     </div>
     <div className="w-full">
