@@ -1,5 +1,13 @@
 import { models, model, Schema } from 'mongoose';
 import { number } from 'yup';
+const subtaskSchema: Schema = new Schema(
+  {
+             title: {
+               type: String,
+               require:true 
+             },
+          isComplete:{type:Boolean,required:true}
+});
 const taskSchema: Schema = new Schema(
   {
     name:{
@@ -18,7 +26,8 @@ const taskSchema: Schema = new Schema(
       type: String,
       require:true
       
-    }
+    },
+    subtasks:[subtaskSchema]
   });
 const columnSchema: Schema = new Schema(
    {

@@ -4,17 +4,21 @@ import {reorderInSameColumn,reorderInDiffColumn} from '../../helper/util'
 import {InitialProps} from '../../services/reducer/reducer'
 import Column from 'src/components/BoardMenu/column'
 import  axios from 'axios'
-import { Scrollbars } from 'react-custom-scrollbars-2';
-import {allboardData} from '../../services/action/action'
+import {allboardData,reload,openCreateBoard} from '../../services/action/action'
 import {DragDropContext} from 'react-beautiful-dnd'
 const BoardMenu = () => {
-  const boardData:any = useSelector((state:InitialProps)=>state.boardData)
+  const board:any = useSelector((state:InitialProps)=>state.boardData)
+ const [boardData,setBoardData]=useState<any>()
   const change = useSelector((state:InitialProps)=>state.change)
   const dispatch=useDispatch()
  
 
+useEffect(() => {
+  let data =JSON.parse(JSON.stringify(board))
+  setBoardData(data)
  
-console.log(boardData);
+}, [!change])
+
 
   
   const onDragEnd = (result: any) => {
@@ -49,12 +53,13 @@ console.log(boardData);
       };
       
      
-      let result = axios.put('/api/update',newBoard)
+      let result:any = axios.put('/api/update',newBoard)
       if(result)
   {
+    dispatch(reload(!change))
     dispatch(allboardData(newBoard))
     
-    alert(result)
+   
   }
   
       return;
@@ -62,7 +67,10 @@ console.log(boardData);
 
     //different column
     const newStartEnd = reorderInDiffColumn(sourceCol, destinationCol, source.index, destination.index);
-    console.log("🚀 ~ file: index.tsx:61 ~ onDragEnd ~ newStartEnd", newStartEnd)
+   
+   
+  
+
 
     const newsBoard = {
       ...boardData,
@@ -74,30 +82,40 @@ console.log(boardData);
         [newStartEnd.newEndCol.id]: newStartEnd.newEndCol,
       }),}
     };
+    let newdata=JSON.parse(JSON.stringify(newsBoard))
     
-    let results = axios.put('/api/update',newsBoard)
+ 
+   
+    let results:any = axios.put('/api/update',newdata)
+     
       if(results)
   {
-    dispatch(allboardData(newsBoard))
-    alert(results)
+    dispatch(allboardData(newdata))
+    dispatch(reload(!change))
+   
 
   }
     
   };
  
   return (
-   <Scrollbars>
-  <div className=' flex justify-around  '>
+ 
+  <div className=' flex   '>
        <DragDropContext onDragEnd={onDragEnd}>
-      {boardData&&boardData.data?.column.map((data:any)=>{
+      {boardData&&boardData?.data?.column?.map((data:any)=>{
         return(
 
        <Column  key={data._id} columnData={data}/>
        )
       })}
       </DragDropContext>
+      <div className='flex flex-col ml-8 mt-5 '>
+            <div className='flex items-center justify-center bg-[#242631] rounded-md mt-12  h-[28.5rem] w-[17.5rem]'>
+            <h1 className='text-white cursor-pointer  text-bold text-2xl hover:text-[#635FC7]' onClick={()=>dispatch(openCreateBoard(true))}>+ New Column</h1>
+          </div>
+    
      </div>
-     </Scrollbars>
+     </div> 
   )
 }
 

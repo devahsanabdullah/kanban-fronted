@@ -6,6 +6,7 @@ import {wrapper} from '../services/store/store'
 function MyApp({ Component, pageProps }: AppProps) {
   return  (
   <>
+  <div className="w-full h-screen">
   <div className="flex w-full">
     <div className="w-1/4 hidden md:block">
     <HeaderLogo />
@@ -13,8 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div className="w-full">
     <Header />
     </div>
+    
   </div>
   <Component {...pageProps} />
+  </div>
   </>);
 }
 

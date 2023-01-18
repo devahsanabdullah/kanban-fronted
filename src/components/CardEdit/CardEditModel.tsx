@@ -6,11 +6,17 @@ import {ImCross} from 'react-icons/im'
 import { Formik, ErrorMessage, Field, Form, FieldArray } from "formik";
 import { formSchema } from "../Validation/modelValidation";
 import { InitialProps } from "../../services/reducer/reducer";
-import { openNavbar, openNewTask ,allboardData,reload} from "../../services/action/action";
+import { openNavbar, openNewTask,cardEditModelOpen ,allboardData,reload} from "../../services/action/action";
 import axios from "axios";
-export default function NewTask() {
-  const open = useSelector((state: InitialProps) => state.newTask);
+export default function CardEditModel() {
+  const open = useSelector((state: InitialProps) => state.cardEditModel);
   const boardData:any = useSelector((state: InitialProps) => state.boardData);
+  const cardData:any = useSelector((state: InitialProps) => state.cardShowData);
+  
+
+  const arr = cardData?.subtasks?.map((str:any)=>str.title)
+
+ 
   const change = useSelector((state: InitialProps) => state.change);
  
   
@@ -19,7 +25,7 @@ export default function NewTask() {
 
   const cancelButtonRef = useRef(null);
   function createBoordclose() {
-    dispatch(openNewTask(false));
+    dispatch(cardEditModelOpen(false));
   }
   const styles =
 'block w-full mt-2 px-4 shadow-md py-2 mb-3 leading-tight text-white bg-[#2B2C37] border-2 border-[#828FA3] focus:border-[#635FC7] rounded appearance-none focus:outline-none focus:bg-[#2B2C37]'
@@ -62,27 +68,46 @@ export default function NewTask() {
                     </h1>
                   </div>
                   <Formik
-                    initialValues={{ name: "", description:"",subtasks:[''], status:'' }}
+                    enableReinitialize
+                    initialValues={{ name:cardData?.name, description:cardData?.description,subtasks:arr, status:cardData?.status }}
                     validationSchema={formSchema}
                     onSubmit={(values, { setSubmitting }) => {
-                      
+                   
+                    console.log(cardData._id)
                       let newdata=JSON.parse(JSON.stringify(boardData))
-                      let taskfilter=newdata.data.column.find((data:any)=>data.title===values.status)
+                       let newobj = newdata.data.column.map((data:any)=>{
+                            data.task=data.task.filter((task:any)=>{
+                                return task._id!==cardData._id
+                            }
+                            )
+                            return data
+                       })
+                      let newBoardData = {
+                        ...newdata,
+                        data:{
+                          ...newdata.data,      
+                          column:newobj 
+                        }
+                      }
+                     
+                      let taskfilter=newBoardData.data.column.find((data:any)=>data.title===values.status)
                       let sub = values.subtasks.map((str:string,index:number) => {
         
                         return ({title:str,isComplete:true})
                       })
-                      let newObject={
+                      let newCardObject={
+                        ...cardData,
                         name:values.name,
                         description:values.description,
                         status:values.status,
                         subtasks:sub
                       }
-                      let val = newdata.data.column.map((data:any)=>{
+                      
+                      let val = newBoardData?.data?.column.map((data:any)=>{
                          
                           if(data.title===values.status)
                           {
-                            data.task=[...taskfilter.task,newObject]
+                            data.task=[...taskfilter.task,newCardObject]
                             
                             
                             return data
@@ -91,19 +116,18 @@ export default function NewTask() {
                       })
                     
                      let newVal = {
-                       ...newdata,
+                       ...newBoardData,
                       }
-                     
-                    
                       let result:any = axios.put('/api/update',newVal)
                         if(result)
                     {
                       dispatch(allboardData(newVal))
                       dispatch(openNewTask(false));
+                      dispatch(cardEditModelOpen(false))
                       dispatch(reload(!change))
                      
                     }
-                    }
+                     }
                     
                   }
                     
@@ -157,7 +181,7 @@ export default function NewTask() {
                         <select
                       name="status"
                       className={`${styles}`}
-                      // value={values.color}
+                      value={values.status}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     >

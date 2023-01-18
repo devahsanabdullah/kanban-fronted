@@ -6,10 +6,11 @@ import {ImCross} from 'react-icons/im'
 import { Formik, ErrorMessage, Field, Form, FieldArray } from "formik";
 import { formSchema } from "../Validation/modelValidation";
 import { InitialProps } from "../../services/reducer/reducer";
-import { openNavbar, openCreateBoard } from "../../services/action/action";
+import { openNavbar, openCreateBoard,reload } from "../../services/action/action";
 import axios from "axios";
 export default function ModelTitle() {
   const open = useSelector((state: InitialProps) => state.createBoard);
+  const change = useSelector((state: InitialProps) => state.change);
   const dispatch = useDispatch();
   //   const [open, setOpen] = useState(value)
 
@@ -63,12 +64,13 @@ export default function ModelTitle() {
                     onSubmit={(values, { setSubmitting }) => {
                       const arrayOfObjects = values.columns.map((str:string, index) => ({id: index, title: str}))
                       const objectData = {title:values.name,column:arrayOfObjects}
-                      // alert(JSON.stringify(objectData, null, 2));
-                      let result = axios.post('/api/saveData',objectData)
+                     
+                      let result:any = axios.post('/api/saveData',objectData)
                         if(result)
                     {
                       dispatch(openCreateBoard(false));
-                      alert(result)
+                      dispatch(reload(!change))
+                    
                     }
                     }
                     

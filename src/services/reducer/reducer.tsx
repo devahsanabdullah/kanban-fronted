@@ -4,6 +4,13 @@ export type InitialProps = {
   newTask:boolean
   boardData: [];
   change:boolean;
+  boardEdit:[],
+  boardEditOpen:boolean
+  boardDeleteOpen:boolean
+  cardModelOpen:boolean
+  cardShowData:[]
+  cardEditModel:boolean
+  cardDeleteOpen:boolean
 };
 
 const initialState: InitialProps = {
@@ -11,7 +18,14 @@ const initialState: InitialProps = {
   createBoard: false,
   newTask:false,
   boardData: [],
-  change:false
+  change:false,
+  boardEdit:[],
+  boardEditOpen:false,
+  boardDeleteOpen:false,
+  cardModelOpen:false,
+  cardShowData:[],
+  cardEditModel:false,
+  cardDeleteOpen:false
 };
 
 const rootReducer = (state: InitialProps = initialState, action: any) => {
@@ -42,6 +56,43 @@ const rootReducer = (state: InitialProps = initialState, action: any) => {
         ...state,
         boardData: action.payload.boardData,
       };
+      case "BOARD_EDIT":
+      return {
+        ...state,
+       
+        boardEditOpen:action.payload.boardEditOpen
+      };
+      case "BOARD_DELETE":
+      return {
+        ...state,
+       
+        boardDeleteOpen:action.payload.boardDeleteOpen
+      };
+      case "CARD_DELETE":
+      return {
+        ...state,
+       
+        cardDeleteOpen:action.payload.cardDeleteOpen
+      };
+      case "CARD_mODEL_OPEN":
+      return {
+        ...state,
+       
+        cardModelOpen:action.payload.cardModelOpen
+      };
+      case "CARD_SHOW_DATA":
+      return {
+        ...state,
+       
+        cardShowData:action.payload.cardShowData
+      };
+      case "CARD_EDIT_MODEL":
+      return {
+        ...state,
+       
+        cardEditModel:action.payload.cardEditModel
+      };
+
 
     default:
       return state;

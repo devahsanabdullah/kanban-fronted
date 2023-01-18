@@ -24,9 +24,20 @@ export const reorderInSameColumn = (sourceCol: any, startIndex: number, endIndex
     const newStartCol = { ...sourceCol, task: startTasks };
   
     const endTasks = Array.from(destinationCol.task);
-    endTasks.splice(destinationIndex, 0, removed);
-    const newEndCol = { ...destinationCol, task: endTasks };
   
+    endTasks.splice(destinationIndex, 0, removed);
+    const endCol = endTasks.map((str:any)=>{
+      if(str.status !== destinationCol.title)
+      {
+        str.status =destinationCol.title
+        return str
+      }
+      return str
+    })
+   
+    const newEndCol = { ...destinationCol, task: endCol };
+  
+    
     return { newStartCol, newEndCol };
   };
   

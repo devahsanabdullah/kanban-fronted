@@ -6,20 +6,22 @@ import {ImCross} from 'react-icons/im'
 import { Formik, ErrorMessage, Field, Form, FieldArray } from "formik";
 import { formSchema } from "../Validation/modelValidation";
 import { InitialProps } from "../../services/reducer/reducer";
-import { openNavbar, openNewTask ,allboardData,reload} from "../../services/action/action";
+import { openNavbar, allboardData ,allboardEdit, reload} from "../../services/action/action";
 import axios from "axios";
-export default function NewTask() {
-  const open = useSelector((state: InitialProps) => state.newTask);
+export default function BoardEditModel() {
+  const open = useSelector((state: InitialProps) => state.boardEditOpen);
   const boardData:any = useSelector((state: InitialProps) => state.boardData);
   const change = useSelector((state: InitialProps) => state.change);
- 
+
   
+ 
   const dispatch = useDispatch();
   //   const [open, setOpen] = useState(value)
+    const arr = boardData?.data?.column.map((obj:any)=>obj.title)
 
   const cancelButtonRef = useRef(null);
   function createBoordclose() {
-    dispatch(openNewTask(false));
+    dispatch(allboardEdit(false));
   }
   const styles =
 'block w-full mt-2 px-4 shadow-md py-2 mb-3 leading-tight text-white bg-[#2B2C37] border-2 border-[#828FA3] focus:border-[#635FC7] rounded appearance-none focus:outline-none focus:bg-[#2B2C37]'
@@ -62,76 +64,58 @@ export default function NewTask() {
                     </h1>
                   </div>
                   <Formik
-                    initialValues={{ name: "", description:"",subtasks:[''], status:'' }}
+                     enableReinitialize
+                    initialValues={{ name:boardData?.data?.title, columns: arr }}
                     validationSchema={formSchema}
                     onSubmit={(values, { setSubmitting }) => {
+                      const arrayOfObjects = values.columns.map((str:string, index:number) => ({id: index, title: str,...boardData.data.column[index]}))
+                      const objectData = {title:values.name,column:arrayOfObjects}
                       
-                      let newdata=JSON.parse(JSON.stringify(boardData))
-                      let taskfilter=newdata.data.column.find((data:any)=>data.title===values.status)
-                      let sub = values.subtasks.map((str:string,index:number) => {
-        
-                        return ({title:str,isComplete:true})
-                      })
-                      let newObject={
-                        name:values.name,
-                        description:values.description,
-                        status:values.status,
-                        subtasks:sub
+                      
+                      
+                      let newdata ={
+                        
+                        ...boardData,
+                        data:objectData
+                          
+  
+                      
+                        
                       }
-                      let val = newdata.data.column.map((data:any)=>{
-                         
-                          if(data.title===values.status)
-                          {
-                            data.task=[...taskfilter.task,newObject]
-                            
-                            
-                            return data
-                          }
-                          return data
-                      })
-                    
-                     let newVal = {
-                       ...newdata,
-                      }
-                     
-                    
-                      let result:any = axios.put('/api/update',newVal)
+                      
+                      let result:any = axios.post('/api/update',newdata)
                         if(result)
                     {
-                      dispatch(allboardData(newVal))
-                      dispatch(openNewTask(false));
+                      dispatch(allboardEdit(false))
+                      dispatch(allboardData(newdata))
                       dispatch(reload(!change))
                      
                     }
-                    }
+                     }
                     
                   }
                     
                   >
-                    {({ isSubmitting,values, errors,handleChange,handleBlur }) => (
+                    {({ isSubmitting,values, errors }) => (
                       <Form>
                         <div className="flex flex-col">
-                        <label htmlFor="name" className="font-[1.125rem] font-bold text-[#ffffff]">Title</label>
+                        <label htmlFor="name" className="font-[1.125rem] font-bold text-[#ffffff]">Name</label>
                         <Field name="name" className={styles} type="text" />
-                     {/* {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>} */}
+                        {/* {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>} */}
                         </div>
                         <div className="flex flex-col">
-                        <label htmlFor="columns" className="font-[1.125rem] font-bold text-[#ffffff]" >Description</label>
-                        <Field name="description" className={`${styles}  h-24`} type="textarea" rows={5} />
-                        </div>
-                        <div className="flex flex-col">
-                        <label htmlFor="columns" className="font-[1.125rem] font-bold text-[#ffffff]" >subtask</label>
+                        <label htmlFor="columns" className="font-[1.125rem] font-bold text-[#ffffff]" >Columns</label>
                     
 
                       
-                        <FieldArray name="subtasks">
+                        <FieldArray name="columns">
                           {({ form, push, remove }) => (
                             <>
                             
-                              {values.subtasks && values.subtasks.length > 0 ? values.subtasks.map(
+                              {values.columns && values.columns.length > 0 ? values.columns.map(
                                 (column: any, index: any) => (
                                   <div key={index} className={'flex items-center'}>
-                                    <Field className={styles} name={`subtasks.${index}`} />
+                                    <Field className={styles} name={`columns.${index}`} />
                                  {index===0?null:<button
                                       type="button"
                                       className="ml-3 text-[#828FA3] hover:-translate-y-1 hover:scale-110"
@@ -152,35 +136,13 @@ export default function NewTask() {
                         {/* {errors.columns && <ErrorMessage>{errors.columns}</ErrorMessage>} */}
                     
                         </div>
-                        <div className="flex flex-col">
-                        <label htmlFor="columns" className="font-[1.125rem] font-bold text-[#ffffff]" >status</label>
-                        <select
-                      name="status"
-                      className={`${styles}`}
-                      // value={values.color}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    >
-                      <option value="" label="Click Here">
-                        Click Here{' '}
-                      </option>
-                      {boardData&&boardData.data?.column.map((data:any)=>{
-                            return(
-                              <>
-                      <option value={data.title}label={data.title}></option>
-                      </>
-                      )})}
-                      
-                    </select>
-                        </div>
-                        
-                        
+
                         <button type="submit" className="text-white bg-[#635FC7] py-2 rounded-full w-full mt-3" disabled={isSubmitting}>
                           Submit
                         </button>
                       </Form>
                     )}
-                  </Formik>  
+                  </Formik>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
