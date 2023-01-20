@@ -126,7 +126,7 @@ export default function CardEditModel() {
                       let newVal = {
                         ...newBoardData,
                       };
-                      let result: any = axios.put("/api/update", newVal);
+                      let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newVal);
                       if (result) {
                         dispatch(allboardData(newVal));
                         dispatch(openNewTask(false));

@@ -102,7 +102,7 @@ export default function NewTask() {
                         ...newdata,
                       };
 
-                      let result: any = axios.put("/api/update", newVal);
+                      let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newVal);
                       if (result) {
                         dispatch(allboardData(newVal));
                         dispatch(openNewTask(false));

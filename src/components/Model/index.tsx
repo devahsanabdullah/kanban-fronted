@@ -75,7 +75,7 @@ export default function ModelTitle() {
                         column: arrayOfObjects,
                       };
 
-                      let result: any = axios.post("/api/saveData", objectData);
+                      let result: any = axios.post("https://kanban-projectchallange.vercel.app/api/saveData", objectData);
                       if (result) {
                         dispatch(openCreateBoard(false));
                         dispatch(reload(!change));

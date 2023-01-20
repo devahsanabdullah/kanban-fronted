@@ -17,9 +17,9 @@ export default function BoardDeleteDrop() {
 
   const handleDelete = () => {
     let id = boardData?._id;
-    let result: any = axios.delete(`/api/boardDelete`, { data: { id } });
+    let result: any = axios.delete(`https://kanban-projectchallange.vercel.app/api/boardDelete`, { data: { id } });
     if (result) {
-      // dispatch(allboardData([]));
+      dispatch(allboardData([]));
       dispatch(boardDelete(false));
       dispatch(reload(!change));
     }

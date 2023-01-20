@@ -8,9 +8,10 @@ const monngodb_url =
 
 export default function connection()
 {
+    let url:string = process.env.MONGODB_URI as string
     
     mongoose
-      .connect(monngodb_url)
+      .connect(url )
       .then((res) => {
         console.log("database connected");
       })

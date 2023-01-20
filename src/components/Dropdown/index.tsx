@@ -23,7 +23,7 @@ export default function DropDown() {
     dispatch(reload(!change));
   };
   const objectget = async () => {
-    let result = await axios.get("/api/navaGetData");
+    let result = await axios.get("https://kanban-projectchallange.vercel.app/api/navaGetData");
     if (result) {
       setObjectData(result.data);
     }

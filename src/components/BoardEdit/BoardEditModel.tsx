@@ -91,7 +91,7 @@ export default function BoardEditModel() {
                         data: objectData,
                       };
 
-                      let result: any = axios.post("/api/update", newdata);
+                      let result: any = axios.post("https://kanban-projectchallange.vercel.app/api/update", newdata);
                       if (result) {
                         dispatch(allboardEdit(false));
                         dispatch(allboardData(newdata));

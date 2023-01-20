@@ -95,7 +95,7 @@ const BoardMenu = () => {
     };
     let newdata = JSON.parse(JSON.stringify(newsBoard));
 
-    let results: any = axios.put("/api/update", newdata);
+    let results: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newdata);
 
     if (results) {
       dispatch(allboardData(newdata));

@@ -82,7 +82,7 @@ export default function CardModel() {
       },
     };
 
-    let result: any = axios.put("/api/update", newData);
+    let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newData);
     if (result) {
       dispatch(reload(!change));
       dispatch(OneCardShowData(cardVal));
