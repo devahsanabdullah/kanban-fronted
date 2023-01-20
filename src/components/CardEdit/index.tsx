@@ -6,29 +6,29 @@ import { InitialProps } from "../../services/reducer/reducer";
 import { CardDelete } from "../../services/action/action";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import {allboardEdit,cardEditModelOpen,cardModelFun} from "../../services/action/action";
+import {
+  allboardEdit,
+  cardEditModelOpen,
+  cardModelFun,
+} from "../../services/action/action";
 import { boolean } from "yup";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function CardEditDrop() {
-
-  const boardData:any = useSelector((state: InitialProps) => state.boardData);
+  const boardData: any = useSelector((state: InitialProps) => state.boardData);
 
   const dispatch = useDispatch();
-  const handleDelete=()=>{
-  
+  const handleDelete = () => {
     dispatch(CardDelete(true));
-    dispatch(cardModelFun(false))
-    
-  }
-  const handleOpen=()=>{  
-    dispatch(cardEditModelOpen(true))
-    dispatch(cardModelFun(false))
-    
-  }
- 
+    dispatch(cardModelFun(false));
+  };
+  const handleOpen = () => {
+    dispatch(cardEditModelOpen(true));
+    dispatch(cardModelFun(false));
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -58,7 +58,7 @@ export default function CardEditDrop() {
                 </button>
               </div>
             </Menu.Item>
-            <Menu.Item> 
+            <Menu.Item>
               <div className="hover:opacity-10" onClick={handleDelete}>
                 <button className="  text-md flex items-center justify-center  px-8   py-3 text-lg  font-bold tracking-wide text-red-400">
                   <h1 className="ml-2">Delete Board</h1>
