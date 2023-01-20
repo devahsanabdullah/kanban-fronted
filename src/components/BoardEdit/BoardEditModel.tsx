@@ -63,7 +63,7 @@ export default function BoardEditModel() {
                 <div className="bg-[#2B2C37] px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="flex items-center justify-center">
                     <h1 className="font-[1.125rem] mt-3 text-lg font-bold text-[#ffffff]">
-                      Add New Board
+                      Edit Board
                     </h1>
                   </div>
                   <Formik

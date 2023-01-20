@@ -14,6 +14,7 @@ const SideBar = () => {
   const open = useSelector((state: InitialProps) => state.openNav);
   const change = useSelector((state: InitialProps) => state.change);
   const dispatch = useDispatch();
+  
   useEffect(() => {
     objectget();
   }, [!change]);
@@ -126,4 +127,5 @@ const SideBar = () => {
 };
 
 export default SideBar;
+
 

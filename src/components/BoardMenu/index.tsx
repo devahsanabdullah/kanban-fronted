@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { reorderInSameColumn, reorderInDiffColumn } from "../../helper/util";
 import { InitialProps } from "../../services/reducer/reducer";
+import {allboardEdit} from "../../services/action/action"
 import Column from "src/components/BoardMenu/column";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import axios from "axios";
@@ -116,7 +117,7 @@ const BoardMenu = () => {
         <div className="mt-12 flex h-[28.5rem]  w-[17.5rem] items-center justify-center  rounded-md bg-[#242631]">
           <h1
             className="text-bold cursor-pointer  text-2xl text-white hover:text-[#635FC7]"
-            onClick={() => dispatch(openCreateBoard(true))}
+            onClick={() => dispatch(allboardEdit(true))}
           >
             + New Column
           </h1>
