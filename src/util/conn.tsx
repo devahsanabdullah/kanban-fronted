@@ -3,14 +3,14 @@ import { MongoClient } from 'mongodb'
 const mongodb = require('mongodb');
 
 
-  
+const monngodb_url =
+  "mongodb+srv://ahsan:ahsan@cluster0.sbaxxrx.mongodb.net/?retryWrites=true&w=majority";
 
 export default function connection()
 {
-    let url = process.env.MONGODB_LINK 
     
     mongoose
-      .connect(url as string  ,{ useNewUrlParser: true } as ConnectOptions)
+      .connect(monngodb_url)
       .then((res) => {
         console.log("database connected");
       })
