@@ -6,6 +6,7 @@ import { ImCross } from "react-icons/im";
 import { Formik, ErrorMessage, Field, Form, FieldArray } from "formik";
 import { formSchema } from "../Validation/modelValidation";
 import { InitialProps } from "../../services/reducer/reducer";
+import {BASEURL} from "../../util/baseUrl"
 import {
   openNavbar,
   openNewTask,
@@ -102,7 +103,7 @@ export default function NewTask() {
                         ...newdata,
                       };
 
-                      let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newVal);
+                      let result: any = axios.put(`${BASEURL}/api/update`, newVal);
                       if (result) {
                         dispatch(allboardData(newVal));
                         dispatch(openNewTask(false));

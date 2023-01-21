@@ -14,6 +14,7 @@ import {
   reload,
 } from "../../services/action/action";
 import axios from "axios";
+import { BASEURL } from "src/util/baseUrl";
 export default function CardEditModel() {
   const open = useSelector((state: InitialProps) => state.cardEditModel);
   const boardData: any = useSelector((state: InitialProps) => state.boardData);
@@ -126,7 +127,7 @@ export default function CardEditModel() {
                       let newVal = {
                         ...newBoardData,
                       };
-                      let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newVal);
+                      let result: any = axios.put(`${BASEURL}/api/update`, newVal);
                       if (result) {
                         dispatch(allboardData(newVal));
                         dispatch(openNewTask(false));

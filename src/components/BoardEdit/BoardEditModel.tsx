@@ -13,6 +13,7 @@ import {
   reload,
 } from "../../services/action/action";
 import axios from "axios";
+import { BASEURL } from "src/util/baseUrl";
 export default function BoardEditModel() {
   const open = useSelector((state: InitialProps) => state.boardEditOpen);
   const boardData: any = useSelector((state: InitialProps) => state.boardData);
@@ -91,7 +92,7 @@ export default function BoardEditModel() {
                         data: objectData,
                       };
 
-                      let result: any = axios.post("https://kanban-projectchallange.vercel.app/api/update", newdata);
+                      let result: any = axios.post(`${BASEURL}/api/update`, newdata);
                       if (result) {
                         dispatch(allboardEdit(false));
                         dispatch(allboardData(newdata));

@@ -12,6 +12,7 @@ import {
   openCreateBoard,
 } from "../../services/action/action";
 import { DragDropContext } from "react-beautiful-dnd";
+import { BASEURL } from "src/util/baseUrl";
 const BoardMenu = () => {
   const board: any = useSelector((state: InitialProps) => state.boardData);
   const [boardData, setBoardData] = useState<any>();
@@ -65,7 +66,7 @@ const BoardMenu = () => {
         },
       };
 
-      let result: any = axios.put("/api/update", newBoard);
+      let result: any = axios.put(`${BASEURL}/api/update`, newBoard);
       if (result) {
         dispatch(reload(!change));
         dispatch(allboardData(newBoard));
@@ -95,7 +96,7 @@ const BoardMenu = () => {
     };
     let newdata = JSON.parse(JSON.stringify(newsBoard));
 
-    let results: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newdata);
+    let results: any = axios.put(`${BASEURL}/api/update`, newdata);
 
     if (results) {
       dispatch(allboardData(newdata));

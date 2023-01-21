@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { InitialProps } from "../../services/reducer/reducer";
 import { allboardData } from "../../services/action/action";
+import { BASEURL } from "src/util/baseUrl";
 import axios from "axios";
 import {
   openNavbar,
@@ -23,7 +24,7 @@ const SideBar = () => {
     dispatch(reload(!change));
   };
   const objectget = async () => {
-    let result = await axios.get("https://kanban-projectchallange.vercel.app/api/navaGetData");
+    let result = await axios.get(`${BASEURL}/api/navaGetData`);
     if (result) {
       setObjectData(result.data);
     }

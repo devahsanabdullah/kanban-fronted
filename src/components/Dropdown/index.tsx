@@ -6,6 +6,7 @@ import { InitialProps } from "../../services/reducer/reducer";
 import { allboardData, reload } from "../../services/action/action";
 import axios from "axios";
 import { openNavbar, openCreateBoard } from "../../services/action/action";
+import { BASEURL } from "src/util/baseUrl";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -23,7 +24,7 @@ export default function DropDown() {
     dispatch(reload(!change));
   };
   const objectget = async () => {
-    let result = await axios.get("https://kanban-projectchallange.vercel.app/api/navaGetData");
+    let result = await axios.get(`${BASEURL}/api/navaGetData`);
     if (result) {
       setObjectData(result.data);
     }

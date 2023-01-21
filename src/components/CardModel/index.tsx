@@ -17,6 +17,7 @@ import axios from "axios";
 import CardEditDrop from "src/components/CardEdit";
 import { count } from "console";
 import { taskCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
+import { BASEURL } from "src/util/baseUrl";
 export default function CardModel() {
   const [boardData, setBoardData] = useState<any>();
 
@@ -82,7 +83,7 @@ export default function CardModel() {
       },
     };
 
-    let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newData);
+    let result: any = axios.put(`${BASEURL}/api/update`, newData);
     if (result) {
       dispatch(reload(!change));
       dispatch(OneCardShowData(cardVal));

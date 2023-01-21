@@ -13,6 +13,7 @@ import {
 } from "../../services/action/action";
 import axios from "axios";
 import { getServers } from "dns";
+import { BASEURL } from "src/util/baseUrl";
 export default function ModelTitle() {
   const open = useSelector((state: InitialProps) => state.createBoard);
   const change = useSelector((state: InitialProps) => state.change);
@@ -75,7 +76,7 @@ export default function ModelTitle() {
                         column: arrayOfObjects,
                       };
 
-                      let result: any = axios.post("https://kanban-projectchallange.vercel.app/api/saveData", objectData);
+                      let result: any = axios.post(`${BASEURL}/api/saveData`, objectData);
                       if (result) {
                         dispatch(openCreateBoard(false));
                         dispatch(reload(!change));

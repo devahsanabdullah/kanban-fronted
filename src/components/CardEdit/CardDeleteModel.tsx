@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { InitialProps } from "../../services/reducer/reducer";
 import { allboardData, reload, CardDelete } from "../../services/action/action";
 import axios from "axios";
+import { BASEURL } from "src/util/baseUrl";
 export default function CardDeleteDrop() {
   const open = useSelector((state: InitialProps) => state.cardDeleteOpen);
   const boardData: any = useSelector((state: InitialProps) => state.boardData);
@@ -28,7 +29,7 @@ export default function CardDeleteDrop() {
       },
     };
 
-    let result: any = axios.put("https://kanban-projectchallange.vercel.app/api/update", newVal);
+    let result: any = axios.put(`${BASEURL}/api/update`, newVal);
 
     if (result) {
       dispatch(allboardData(newVal));

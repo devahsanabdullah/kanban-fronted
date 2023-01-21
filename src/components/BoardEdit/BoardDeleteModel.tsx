@@ -8,6 +8,7 @@ import {
   reload,
 } from "../../services/action/action";
 import axios from "axios";
+import { BASEURL } from "src/util/baseUrl";
 export default function BoardDeleteDrop() {
   const open = useSelector((state: InitialProps) => state.boardDeleteOpen);
   const boardData: any = useSelector((state: InitialProps) => state.boardData);
@@ -17,7 +18,7 @@ export default function BoardDeleteDrop() {
 
   const handleDelete = () => {
     let id = boardData?._id;
-    let result: any = axios.delete(`https://kanban-projectchallange.vercel.app/api/boardDelete`, { data: { id } });
+    let result: any = axios.delete(`${BASEURL}/api/boardDelete`, { data: { id } });
     if (result) {
       dispatch(allboardData([]));
       dispatch(boardDelete(false));
